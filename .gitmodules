@@ -10,3 +10,6 @@
 	path = cmake
 	url = https://github.com/sudara/cmake-includes.git
 	branch = main
+[submodule "modules/pipo"]
+	path = modules/pipo
+	url = https://github.com/Badokas/pipo.git
