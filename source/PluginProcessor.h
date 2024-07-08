@@ -2,8 +2,11 @@
 
 #include <juce_audio_processors/juce_audio_processors.h>
 
+// #include "JucePiPoHost.h"
+// #include "PiPoOutputter.h"
+
 #if (MSVC)
-#include "ipps.h"
+    #include "ipps.h"
 #endif
 
 class PluginProcessor : public juce::AudioProcessor
@@ -39,5 +42,10 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
 private:
+    // void initPipoHost();
+
+    // JucePiPoHost* host_;
+    // JucePiPo* jucePipo_;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginProcessor)
 };
