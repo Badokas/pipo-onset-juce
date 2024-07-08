@@ -10,7 +10,6 @@
  * All rights reserved.
  */
 
-
 #include "JucePiPo.h"
 #include "PiPoCollection.h"
 #include "PiPoHost.h"
@@ -18,7 +17,7 @@
 JucePiPo::JucePiPo(std::string name) {
   this->pipo = PiPoCollection::create(name);
 
-  if (this->pipo != NULL) {
+  if (this->pipo != nullptr) {
     this->name = name;
   } else {
     this->name = "undefined";
@@ -26,7 +25,7 @@ JucePiPo::JucePiPo(std::string name) {
 }
 
 JucePiPo::~JucePiPo() {
-  if (this->pipo != NULL) {
+  if (this->pipo != nullptr) {
     delete pipo;
   }
 }
@@ -54,7 +53,7 @@ bool
 JucePiPo::setAttr(const char *attrName, double value) {
   PiPo::Attr *attr = this->pipo->getAttr(attrName);
 
-  if (attr != NULL) {
+  if (attr != nullptr) {
     int iAttr = attr->getIndex();
     return this->pipo->setAttr(iAttr, value);
   }
@@ -65,7 +64,7 @@ bool
 JucePiPo::setAttr(const char *attrName, std::vector<double> values) {
   PiPo::Attr *attr = this->pipo->getAttr(attrName);
 
-  if (attr != NULL) {
+  if (attr != nullptr) {
     int iAttr = attr->getIndex();
     double vals[values.size()];
     return this->pipo->setAttr(iAttr, vals, values.size());
@@ -77,7 +76,7 @@ bool
 JucePiPo::setAttr(const char *attrName, const char *value) {
   PiPo::Attr *attr = this->pipo->getAttr(attrName);
 
-  if (attr != NULL) {
+  if (attr != nullptr) {
     int iAttr = attr->getIndex();
     PiPo::Type type = attr->getType();
 

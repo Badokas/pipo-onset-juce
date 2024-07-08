@@ -1,4 +1,5 @@
 // clang-format off
+
 /**
  *
  * @file PiPoCollection.h
@@ -15,9 +16,10 @@
 #include "PiPoCollection.h"
 #include "PiPoHost.h"
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include <JuceHeader.h>
+// #include "juce_gui_basics/juce_gui_basics.h"
 
-static Array<DynamicLibrary *> loadedPipoLibs;
+static juce::Array<juce::DynamicLibrary *> loadedPipoLibs;
 
 class PiPoPool : public PiPoModuleFactory {
 
@@ -32,9 +34,9 @@ class PiPoPool : public PiPoModuleFactory {
     }
 
     PiPoPoolModule() {
-      if(this->pipo != NULL) {
+      if(this->pipo != nullptr) {
         delete this->pipo;
-        this->pipo = NULL;
+        this->pipo = nullptr;
       }
     }
   };
@@ -46,14 +48,14 @@ public:
 
   ~PiPoPool() {
     for (pipoMap::iterator it = map.begin(); it != map.end(); ++it) {
-      if (it->second != NULL) {
+      if (it->second != nullptr) {
         delete it->second;
-        it->second = NULL;
+        it->second = nullptr;
       }
     }
 
     if (loadedPipoLibs.size() > 0) {
-      DynamicLibrary *dlyb;
+      juce::DynamicLibrary *dlyb;
       int numLibs = loadedPipoLibs.size();
 
       for (int i = numLibs-1; i >= 0; i--) {
@@ -74,7 +76,7 @@ public:
   PiPo *create(unsigned int index, const std::string &pipoName,
                const std::string &instanceName, PiPoModule *&module) {
     pipoMap::iterator it = map.find(pipoName);
-    if(it == map.end()) return NULL;
+    if(it == map.end()) return nullptr;
     PiPo *ret = it->second->create();
     // change this to a unique_ptr, should be automatically deleted
     // for now the consumer still has to handle it ...
@@ -97,21 +99,21 @@ static PiPoPool *factory;
 void
 PiPoCollection::init(bool defaultPipo) {
 
-  if (factory != NULL) {
+  if (factory != nullptr) {
     delete factory;
   }
 
   factory = new PiPoPool();
 
-  Array<File> pipos;
-  DynamicLibrary *dlyb;
-  String pipoNamesString = String::empty;
+  juce::Array<File> pipos;
+  juce::DynamicLibrary *dlyb;
+  juce::String pipoNamesString = juce::String();
   bool firstPipo = true;
 
   File appLocation = File::getSpecialLocation(File::currentApplicationFile);
-  String appPath = appLocation.getFullPathName();
-  String parentPath = appPath.upToLastOccurrenceOf("/", true, true);
-  String pipoPath = parentPath + appLocation.getFileName() + "/Contents/Resources/pipo/";
+  juce::String appPath = appLocation.getFullPathName();
+  juce::String parentPath = appPath.upToLastOccurrenceOf("/", true, true);
+  juce::String pipoPath = parentPath + appLocation.getFileName() + "/Contents/Resources/pipo/";
   std::cout << pipoPath << std::endl;
 
   if (pipoPath.compare("") == 0) {
@@ -122,7 +124,7 @@ PiPoCollection::init(bool defaultPipo) {
   int numLoadedPipos = 0;
 
   for (int i = 0; i < numPipos; i++) {
-    dlyb = new DynamicLibrary();
+    dlyb = new juce::DynamicLibrary();
     if (dlyb->open(pipos[i].getFullPathName())) {
       PiPoCreatorBase *(*getCreatorFun)() = (PiPoCreatorBase *(*)())dlyb->getFunction("getPiPoCreator");
       PiPoCreatorBase *pipoCreator = getCreatorFun();
@@ -130,13 +132,13 @@ PiPoCollection::init(bool defaultPipo) {
       const char *(*getNameFun)() = (const char *(*)())dlyb->getFunction("getPiPoName");
       const char *pipoName = getNameFun();
 
-      if (pipoCreator != NULL && pipoName != NULL) {
+      if (pipoCreator != nullptr && pipoName != nullptr) {
         addToCollection(pipoName, pipoCreator);
         if (firstPipo) {
-          pipoNamesString += String(pipoName);
+          pipoNamesString += juce::String(pipoName);
           firstPipo = false;
         } else {
-          pipoNamesString += (" | "+String(pipoName));
+          pipoNamesString += (" | "+juce::String(pipoName));
         }
         numLoadedPipos++;
       }
@@ -148,9 +150,9 @@ PiPoCollection::init(bool defaultPipo) {
 
 void
 PiPoCollection::deinit() {
-  if (factory != NULL) {
+  if (factory != nullptr) {
     delete factory;
-    factory = NULL;
+    factory = nullptr;
   }
 }
 
@@ -161,14 +163,14 @@ PiPoCollection::addToCollection(std::string name, PiPoCreatorBase *creator) {
 
 PiPo *
 PiPoCollection::create(std::string name) {
-  PiPoChain *chain = new PiPoChain(NULL, factory);
+  PiPoChain *chain = new PiPoChain(nullptr, factory);
 
   if (chain->parse(name.c_str()) > 0 &&
       chain->instantiate() &&
-      chain->connect(NULL)) {
+      chain->connect(nullptr)) {
 
     chain->copyPiPoAttributes();
     return static_cast<PiPo *>(chain);
   }
-  return NULL;
+  return nullptr;
 }

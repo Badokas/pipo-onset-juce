@@ -13,9 +13,12 @@
 #define _JUCE_PIPO_HOST_
 
 // define this to build with the default ircam pipos
-#define DEFAULT_PIPOS
+#define DEFAULT_PIPOS // looks like outdated define
 
-#include "../JuceLibraryCode/JuceHeader.h"
+// #include <JuceHeader.h>
+// #include "juce_gui_basics/juce_gui_basics.h"
+// #include "juce_audio_basics/juce_audio_basics.h"
+
 #include "PiPoHost.h"
 #include "PiPoOutputter.h"
 #include "JucePiPo.h"
@@ -23,23 +26,23 @@
 class MainContentComponent;
 
 class JucePiPoParam {
-  String name;
-  String pipoName;
-  String paramName;
-  StringArray values;
+  juce::String name;
+  juce::String pipoName;
+  juce::String paramName;
+  juce::StringArray values;
 
 public:
   JucePiPoParam() {
-    name = String::empty;
-    pipoName = String::empty;
-    paramName = String::empty;
+    name = juce::String();
+    pipoName = juce::String();
+    paramName = juce::String();
   }
 
-  JucePiPoParam(String name, String pipoName, String paramName, StringArray values) {
+  JucePiPoParam(juce::String name, juce::String pipoName, juce::String paramName, juce::StringArray values) {
     this->name = name;
-    this->pipoName = String::empty;
-    this->paramName = String::empty;
-    this->values = StringArray(values);
+    this->pipoName = juce::String();
+    this->paramName = juce::String();
+    this->values = juce::StringArray(values);
   }
 
   const char *getName() {
@@ -62,7 +65,7 @@ public:
     const char *txt = values[i].toRawUTF8();
     bool isInt = false;
 
-    if (txt != NULL) {
+    if (txt != nullptr) {
       int ival = atoi(txt);
 
       if (ival != 0) {
@@ -80,7 +83,7 @@ public:
     const char *txt = values[i].toRawUTF8();
     bool isFloat = false;
 
-    if (txt != NULL) {
+    if (txt != nullptr) {
       double fval = atof(txt);
 
       if (fval != 0 && fval != HUGE_VAL) {
@@ -112,7 +115,7 @@ public:
     return values[i].toRawUTF8();
   }
 
-  const String getValuesAsString() {
+  const juce::String getValuesAsString() {
     return values.joinIntoString(" ");
   }
 };
@@ -132,7 +135,7 @@ class JucePiPoHost : public PiPo::Parent {
       };
 
       ~JucePiPoModule(void) {
-        if (this->jucePiPo != NULL) {
+        if (this->jucePiPo != nullptr) {
           delete this->jucePiPo;
         }
       };
@@ -148,13 +151,13 @@ class JucePiPoHost : public PiPo::Parent {
       std::string pipoClassNameStr = "pipo." + pipoName;
       JucePiPo *jucePiPo = new JucePiPo(pipoName.c_str());
 
-      if(jucePiPo->pipo != NULL) {
+      if(jucePiPo->pipo != nullptr) {
         module = new JucePiPoModule(jucePiPo);
         return jucePiPo->pipo;
       } else {
         delete jucePiPo;
       }
-      return NULL;
+      return nullptr;
     }
   };
 

@@ -28,7 +28,7 @@ static bool
 getPiPoInstanceAndAttrName(const char *attrName, char *instanceName, char *pipoAttrName) {
   const char *dot = strrchr(attrName, '.');
 
-  if (dot != NULL) {
+  if (dot != nullptr) {
     unsigned int pipoAttrNameLen = dot - attrName;
 
     strcpy(pipoAttrName, dot + 1);
@@ -55,11 +55,11 @@ JucePiPoHost::JucePiPoHost(MainContentComponent *mcc) :
 owner(mcc), inputStreamAttrs(), outputStreamAttrs() {
   PiPoCollection::init();
   outputter = new PiPoOutputter(this);
-  chain = nullptr;
+  chain = nullptrptr;
 }
 
 JucePiPoHost::~JucePiPoHost(void) {
-  if (chain != nullptr) {
+  if (chain != nullptrptr) {
     delete chain;
   }
   PiPoCollection::deinit();
@@ -83,7 +83,7 @@ JucePiPoHost::getLastFrame() {
 
 JucePiPo *
 JucePiPoHost::setPiPoChain(std::string name) {
-  if (chain != nullptr) {
+  if (chain != nullptrptr) {
     delete chain;
   }
 
@@ -95,14 +95,14 @@ JucePiPoHost::setPiPoChain(std::string name) {
 void
 JucePiPoHost::clearPiPoChain() {
   delete chain;
-  chain = nullptr;
+  chain = nullptrptr;
 }
 
 void
 JucePiPoHost::propagateInputAttributes(void) {
-  if (chain != NULL) {
+  if (chain != nullptr) {
     const char *colNameStr[PIPO_MAX_LABELS];
-    const char **labels = NULL;
+    const char **labels = nullptr;
     unsigned int numCols = this->inputStreamAttrs.dims[0];
     unsigned int numLabels = this->inputStreamAttrs.numLabels;
 
@@ -144,7 +144,7 @@ JucePiPoHost::setOutputAttributes(bool hasTimeTags, double rate, double offset,
                                   const char **labels, bool hasVarSize,
                                   double domain, unsigned int maxFrames) {
 
-  if (labels != NULL) {
+  if (labels != nullptr) {
     int numLabels = width;
 
     if (numLabels > PIPO_MAX_LABELS) {
@@ -295,10 +295,10 @@ void JucePiPoHost::setJucePiPoParam(JucePiPoParam *param) {
     /*
     PiPo *pipo = getChain()->getPiPo(instanceName);
 
-    if (pipo != NULL) {
+    if (pipo != nullptr) {
       PiPo::Attr *attr = pipo->getAttr(param->getName());
 
-      if (attr != NULL) {
+      if (attr != nullptr) {
         int ac = param->getNumValues();
 
         if (ac > 0) {
@@ -319,7 +319,7 @@ void JucePiPoHost::setJucePiPoParam(JucePiPoParam *param) {
                 break;
               }
 
-              case PiPo::String: {
+              case PiPo::juce::String: {
                 attr->set(i, param->getValueString(i), true);
                 break;
               }

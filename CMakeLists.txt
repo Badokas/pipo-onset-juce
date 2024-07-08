@@ -105,6 +105,14 @@ file(GLOB_RECURSE SourceFiles
     "${CMAKE_CURRENT_SOURCE_DIR}/source/PluginEditor.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/source/PluginProcessor.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/source/PluginProcessor.cpp"
+    #
+    # "${CMAKE_CURRENT_SOURCE_DIR}/source/JucePiPo.h"
+    # "${CMAKE_CURRENT_SOURCE_DIR}/source/JucePiPo.cpp"
+    # "${CMAKE_CURRENT_SOURCE_DIR}/source/JucePiPoHost.h"
+    # "${CMAKE_CURRENT_SOURCE_DIR}/source/JucePiPoHost.cpp"
+    # "${CMAKE_CURRENT_SOURCE_DIR}/source/PiPoCollection.cpp"
+    # "${CMAKE_CURRENT_SOURCE_DIR}/source/PiPoOutputter.h"
+    # "${CMAKE_CURRENT_SOURCE_DIR}/source/PiPoOutputter.cpp"
 )
 target_sources(SharedCode INTERFACE ${SourceFiles})
 
@@ -162,13 +170,13 @@ target_link_libraries(SharedCode
 target_link_libraries("${PROJECT_NAME}" PRIVATE SharedCode)
 
 # IPP support, comment out to disable
-include(PamplejuceIPP)
+# include(PamplejuceIPP)
 
 # Everything related to the tests target
-include(Tests)
+# include(Tests)
 
 # A separate target for Benchmarks (keeps the Tests target fast)
-include(Benchmarks)
+# include(Benchmarks)
 
 # Output some config for CI (like our PRODUCT_NAME)
-include(GitHubENV)
+# include(GitHubENV)
