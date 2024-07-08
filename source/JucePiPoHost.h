@@ -16,9 +16,10 @@
 #define DEFAULT_PIPOS // looks like outdated define
 
 // #include <JuceHeader.h>
-// #include "juce_gui_basics/juce_gui_basics.h"
-// #include "juce_audio_basics/juce_audio_basics.h"
+#include "juce_gui_basics/juce_gui_basics.h"
+#include "juce_audio_basics/juce_audio_basics.h"
 
+#include "PiPoModule.h"
 #include "PiPoHost.h"
 #include "PiPoOutputter.h"
 #include "JucePiPo.h"

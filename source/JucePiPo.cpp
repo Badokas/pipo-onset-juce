@@ -67,7 +67,7 @@ JucePiPo::setAttr(const char *attrName, std::vector<double> values) {
   if (attr != nullptr) {
     int iAttr = attr->getIndex();
     double vals[values.size()];
-    return this->pipo->setAttr(iAttr, vals, values.size());
+    // return this->pipo->setAttr(iAttr, vals, values.size()); // TODO
   }
   return false;
 }

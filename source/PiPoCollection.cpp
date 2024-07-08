@@ -15,9 +15,10 @@
 
 #include "PiPoCollection.h"
 #include "PiPoHost.h"
+#include "PiPoChain.h"
 
-#include <JuceHeader.h>
-// #include "juce_gui_basics/juce_gui_basics.h"
+// #include <JuceHeader.h>
+#include "juce_gui_basics/juce_gui_basics.h"
 
 static juce::Array<juce::DynamicLibrary *> loadedPipoLibs;
 
@@ -103,14 +104,14 @@ PiPoCollection::init(bool defaultPipo) {
     delete factory;
   }
 
-  factory = new PiPoPool();
+  // factory = new PiPoPool(); // TODO
 
-  juce::Array<File> pipos;
+  juce::Array<juce::File> pipos;
   juce::DynamicLibrary *dlyb;
   juce::String pipoNamesString = juce::String();
   bool firstPipo = true;
 
-  File appLocation = File::getSpecialLocation(File::currentApplicationFile);
+  juce::File appLocation = juce::File::getSpecialLocation(juce::File::currentApplicationFile);
   juce::String appPath = appLocation.getFullPathName();
   juce::String parentPath = appPath.upToLastOccurrenceOf("/", true, true);
   juce::String pipoPath = parentPath + appLocation.getFileName() + "/Contents/Resources/pipo/";
@@ -120,7 +121,7 @@ PiPoCollection::init(bool defaultPipo) {
     return;
   }
 
-  int numPipos = File(pipoPath).findChildFiles(pipos, File::findFiles, false, "*.dylib");
+  int numPipos = juce::File(pipoPath).findChildFiles(pipos, juce::File::findFiles, false, "*.dylib");
   int numLoadedPipos = 0;
 
   for (int i = 0; i < numPipos; i++) {
@@ -161,16 +162,18 @@ PiPoCollection::addToCollection(std::string name, PiPoCreatorBase *creator) {
   factory->include(name, creator);
 }
 
-PiPo *
-PiPoCollection::create(std::string name) {
-  PiPoChain *chain = new PiPoChain(nullptr, factory);
+// TODO
 
-  if (chain->parse(name.c_str()) > 0 &&
-      chain->instantiate() &&
-      chain->connect(nullptr)) {
+// PiPo *
+// PiPoCollection::create(std::string name) {
+//   PiPoChain *chain = new PiPoChain(nullptr, factory);
 
-    chain->copyPiPoAttributes();
-    return static_cast<PiPo *>(chain);
-  }
-  return nullptr;
-}
+//   if (chain->parse(name.c_str()) > 0 &&
+//       chain->instantiate() &&
+//       chain->connect(nullptr)) {
+
+//     chain->copyPiPoAttributes();
+//     return static_cast<PiPo *>(chain);
+//   }
+//   return nullptr;
+// }

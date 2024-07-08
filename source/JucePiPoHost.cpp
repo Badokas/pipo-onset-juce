@@ -55,11 +55,11 @@ JucePiPoHost::JucePiPoHost(MainContentComponent *mcc) :
 owner(mcc), inputStreamAttrs(), outputStreamAttrs() {
   PiPoCollection::init();
   outputter = new PiPoOutputter(this);
-  chain = nullptrptr;
+  chain = nullptr;
 }
 
 JucePiPoHost::~JucePiPoHost(void) {
-  if (chain != nullptrptr) {
+  if (chain != nullptr) {
     delete chain;
   }
   PiPoCollection::deinit();
@@ -83,7 +83,7 @@ JucePiPoHost::getLastFrame() {
 
 JucePiPo *
 JucePiPoHost::setPiPoChain(std::string name) {
-  if (chain != nullptrptr) {
+  if (chain != nullptr) {
     delete chain;
   }
 
@@ -95,7 +95,7 @@ JucePiPoHost::setPiPoChain(std::string name) {
 void
 JucePiPoHost::clearPiPoChain() {
   delete chain;
-  chain = nullptrptr;
+  chain = nullptr;
 }
 
 void

@@ -106,13 +106,13 @@ file(GLOB_RECURSE SourceFiles
     "${CMAKE_CURRENT_SOURCE_DIR}/source/PluginProcessor.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/source/PluginProcessor.cpp"
     #
-    # "${CMAKE_CURRENT_SOURCE_DIR}/source/JucePiPo.h"
-    # "${CMAKE_CURRENT_SOURCE_DIR}/source/JucePiPo.cpp"
-    # "${CMAKE_CURRENT_SOURCE_DIR}/source/JucePiPoHost.h"
-    # "${CMAKE_CURRENT_SOURCE_DIR}/source/JucePiPoHost.cpp"
-    # "${CMAKE_CURRENT_SOURCE_DIR}/source/PiPoCollection.cpp"
-    # "${CMAKE_CURRENT_SOURCE_DIR}/source/PiPoOutputter.h"
-    # "${CMAKE_CURRENT_SOURCE_DIR}/source/PiPoOutputter.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/source/JucePiPo.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/source/JucePiPo.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/source/JucePiPoHost.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/source/JucePiPoHost.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/source/PiPoCollection.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/source/PiPoOutputter.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/source/PiPoOutputter.cpp"
 )
 target_sources(SharedCode INTERFACE ${SourceFiles})
 
